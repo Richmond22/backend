@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="systemDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="phone" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="driver">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="varchar" MaxLength="50" />
+    <Property Name="lastname" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="phone" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="eft">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="paymentID" Type="int" Nullable="false" />
+    <Property Name="AccHolder" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Bank" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="AccNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Branch" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderItems">
+    <Key>
+      <PropertyRef Name="itemlist" />
+    </Key>
+    <Property Name="itemlist" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" />
+    <Property Name="productID" Type="int" />
+    <Property Name="quantity" Type="int" />
+  </EntityType>
+  <EntityType Name="payment">
+    <Key>
+      <PropertyRef Name="paymentID" />
+    </Key>
+    <Property Name="paymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="customerID" Type="int" />
+    <Property Name="paymentMethod" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="supplier">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstname" Type="varchar" MaxLength="50" />
+    <Property Name="lastname" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="phone" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tbladdress">
+    <Key>
+      <PropertyRef Name="addressID" />
+    </Key>
+    <Property Name="addressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="customerID" Type="int" />
+    <Property Name="contactPerson" Type="varchar" MaxLength="50" />
+    <Property Name="phone" Type="varchar" MaxLength="50" />
+    <Property Name="address1" Type="varchar" MaxLength="50" />
+    <Property Name="address2" Type="varchar" MaxLength="50" />
+    <Property Name="suburb" Type="varchar" MaxLength="50" />
+    <Property Name="city" Type="varchar" MaxLength="50" />
+    <Property Name="zip" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tblcart">
+    <Key>
+      <PropertyRef Name="cartID" />
+    </Key>
+    <Property Name="cartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="customerID" Type="int" Nullable="false" />
+    <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tblcredit">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="paymentID" Type="int" />
+    <Property Name="CardDescription" Type="varchar" MaxLength="50" />
+    <Property Name="NameonCard" Type="varchar" MaxLength="50" />
+    <Property Name="CardNumber" Type="varchar" MaxLength="50" />
+    <Property Name="ExpirationDate" Type="varchar" MaxLength="50" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Cvv" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tblcustomer">
+    <Key>
+      <PropertyRef Name="customerID" />
+    </Key>
+    <Property Name="customerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstname" Type="varchar" MaxLength="50" />
+    <Property Name="lastname" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="phone" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tblorder">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="customerID" Type="int" />
+    <Property Name="date" Type="varchar" MaxLength="50" />
+    <Property Name="totalCost" Type="int" />
+    <Property Name="deliveryDate" Type="varchar" MaxLength="50" />
+    <Property Name="DeliveryStatus" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tblproduct">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="model" Type="varchar" MaxLength="50" />
+    <Property Name="category" Type="varchar" MaxLength="50" />
+    <Property Name="price" Type="float" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="ProductImage" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TblSchedule">
+    <Key>
+      <PropertyRef Name="scheduleID" />
+    </Key>
+    <Property Name="scheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID" Type="int" />
+    <Property Name="Sname" Type="varchar" MaxLength="50" />
+    <Property Name="Cname" Type="varchar" MaxLength="50" />
+    <Property Name="contacts" Type="varchar" MaxLength="50" />
+    <Property Name="discription" Type="varchar" MaxLength="50" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="date" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_eft_payment">
+    <End Role="payment" Type="Self.payment" Multiplicity="1" />
+    <End Role="eft" Type="Self.eft" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="payment">
+        <PropertyRef Name="paymentID" />
+      </Principal>
+      <Dependent Role="eft">
+        <PropertyRef Name="paymentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderItems_Tblorder">
+    <End Role="Tblorder" Type="Self.Tblorder" Multiplicity="0..1" />
+    <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblorder">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderItems">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderItems_Tblproduct">
+    <End Role="Tblproduct" Type="Self.Tblproduct" Multiplicity="0..1" />
+    <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblproduct">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="OrderItems">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_payment_Tblcustomer">
+    <End Role="Tblcustomer" Type="Self.Tblcustomer" Multiplicity="0..1" />
+    <End Role="payment" Type="Self.payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblcustomer">
+        <PropertyRef Name="customerID" />
+      </Principal>
+      <Dependent Role="payment">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbladdress_Tblcustomer">
+    <End Role="Tblcustomer" Type="Self.Tblcustomer" Multiplicity="0..1" />
+    <End Role="Tbladdress" Type="Self.Tbladdress" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblcustomer">
+        <PropertyRef Name="customerID" />
+      </Principal>
+      <Dependent Role="Tbladdress">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tblcart_Tblcustomer">
+    <End Role="Tblcustomer" Type="Self.Tblcustomer" Multiplicity="1" />
+    <End Role="Tblcart" Type="Self.Tblcart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblcustomer">
+        <PropertyRef Name="customerID" />
+      </Principal>
+      <Dependent Role="Tblcart">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tblcart_Tblproduct">
+    <End Role="Tblproduct" Type="Self.Tblproduct" Multiplicity="1" />
+    <End Role="Tblcart" Type="Self.Tblcart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblproduct">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="Tblcart">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tblcredit_payment">
+    <End Role="payment" Type="Self.payment" Multiplicity="0..1" />
+    <End Role="Tblcredit" Type="Self.Tblcredit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="payment">
+        <PropertyRef Name="paymentID" />
+      </Principal>
+      <Dependent Role="Tblcredit">
+        <PropertyRef Name="paymentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tblorder_Tblcustomer">
+    <End Role="Tblcustomer" Type="Self.Tblcustomer" Multiplicity="0..1" />
+    <End Role="Tblorder" Type="Self.Tblorder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblcustomer">
+        <PropertyRef Name="customerID" />
+      </Principal>
+      <Dependent Role="Tblorder">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TblSchedule_supplier">
+    <End Role="supplier" Type="Self.supplier" Multiplicity="0..1" />
+    <End Role="TblSchedule" Type="Self.TblSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="supplier">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TblSchedule">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="systemDBModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="driver" EntityType="Self.driver" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="eft" EntityType="Self.eft" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderItems" EntityType="Self.OrderItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="payment" EntityType="Self.payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbladdress" EntityType="Self.Tbladdress" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tblcart" EntityType="Self.Tblcart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tblcredit" EntityType="Self.Tblcredit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tblcustomer" EntityType="Self.Tblcustomer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tblorder" EntityType="Self.Tblorder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tblproduct" EntityType="Self.Tblproduct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblSchedule" EntityType="Self.TblSchedule" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_eft_payment" Association="Self.FK_eft_payment">
+      <End Role="payment" EntitySet="payment" />
+      <End Role="eft" EntitySet="eft" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderItems_Tblorder" Association="Self.FK_OrderItems_Tblorder">
+      <End Role="Tblorder" EntitySet="Tblorder" />
+      <End Role="OrderItems" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderItems_Tblproduct" Association="Self.FK_OrderItems_Tblproduct">
+      <End Role="Tblproduct" EntitySet="Tblproduct" />
+      <End Role="OrderItems" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_payment_Tblcustomer" Association="Self.FK_payment_Tblcustomer">
+      <End Role="Tblcustomer" EntitySet="Tblcustomer" />
+      <End Role="payment" EntitySet="payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbladdress_Tblcustomer" Association="Self.FK_Tbladdress_Tblcustomer">
+      <End Role="Tblcustomer" EntitySet="Tblcustomer" />
+      <End Role="Tbladdress" EntitySet="Tbladdress" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tblcart_Tblcustomer" Association="Self.FK_Tblcart_Tblcustomer">
+      <End Role="Tblcustomer" EntitySet="Tblcustomer" />
+      <End Role="Tblcart" EntitySet="Tblcart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tblcart_Tblproduct" Association="Self.FK_Tblcart_Tblproduct">
+      <End Role="Tblproduct" EntitySet="Tblproduct" />
+      <End Role="Tblcart" EntitySet="Tblcart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tblcredit_payment" Association="Self.FK_Tblcredit_payment">
+      <End Role="payment" EntitySet="payment" />
+      <End Role="Tblcredit" EntitySet="Tblcredit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tblorder_Tblcustomer" Association="Self.FK_Tblorder_Tblcustomer">
+      <End Role="Tblcustomer" EntitySet="Tblcustomer" />
+      <End Role="Tblorder" EntitySet="Tblorder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TblSchedule_supplier" Association="Self.FK_TblSchedule_supplier">
+      <End Role="supplier" EntitySet="supplier" />
+      <End Role="TblSchedule" EntitySet="TblSchedule" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

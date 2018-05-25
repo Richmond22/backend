@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="systemDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DBmodel" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="suppliers" EntityType="systemDBModel.supplier" />
+    <EntitySet Name="Admins" EntityType="systemDBModel.Admin" />
+    <EntitySet Name="Tblcarts" EntityType="systemDBModel.Tblcart" />
+    <EntitySet Name="Tblcustomers" EntityType="systemDBModel.Tblcustomer" />
+    <AssociationSet Name="FK_Tblcart_Tblcustomer" Association="systemDBModel.FK_Tblcart_Tblcustomer">
+      <End Role="Tblcustomer" EntitySet="Tblcustomers" />
+      <End Role="Tblcart" EntitySet="Tblcarts" />
+    </AssociationSet>
+    <EntitySet Name="Tbladdresses" EntityType="systemDBModel.Tbladdress" />
+    <AssociationSet Name="FK_Tbladdress_Tblcustomer" Association="systemDBModel.FK_Tbladdress_Tblcustomer">
+      <End Role="Tblcustomer" EntitySet="Tblcustomers" />
+      <End Role="Tbladdress" EntitySet="Tbladdresses" />
+    </AssociationSet>
+    <EntitySet Name="OrderItems" EntityType="systemDBModel.OrderItem" />
+    <EntitySet Name="efts" EntityType="systemDBModel.eft" />
+    <EntitySet Name="payments" EntityType="systemDBModel.payment" />
+    <AssociationSet Name="FK_eft_payment" Association="systemDBModel.FK_eft_payment">
+      <End Role="payment" EntitySet="payments" />
+      <End Role="eft" EntitySet="efts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_payment_Tblcustomer" Association="systemDBModel.FK_payment_Tblcustomer">
+      <End Role="Tblcustomer" EntitySet="Tblcustomers" />
+      <End Role="payment" EntitySet="payments" />
+    </AssociationSet>
+    <EntitySet Name="Tblcredits" EntityType="systemDBModel.Tblcredit" />
+    <AssociationSet Name="FK_Tblcredit_payment" Association="systemDBModel.FK_Tblcredit_payment">
+      <End Role="payment" EntitySet="payments" />
+      <End Role="Tblcredit" EntitySet="Tblcredits" />
+    </AssociationSet>
+    <EntitySet Name="TblSchedules" EntityType="systemDBModel.TblSchedule" />
+    <AssociationSet Name="FK_TblSchedule_supplier" Association="systemDBModel.FK_TblSchedule_supplier">
+      <End Role="supplier" EntitySet="suppliers" />
+      <End Role="TblSchedule" EntitySet="TblSchedules" />
+    </AssociationSet>
+    <EntitySet Name="Tblorders" EntityType="systemDBModel.Tblorder" />
+    <AssociationSet Name="FK_OrderItems_Tblorder" Association="systemDBModel.FK_OrderItems_Tblorder">
+      <End Role="Tblorder" EntitySet="Tblorders" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tblorder_Tblcustomer" Association="systemDBModel.FK_Tblorder_Tblcustomer">
+      <End Role="Tblcustomer" EntitySet="Tblcustomers" />
+      <End Role="Tblorder" EntitySet="Tblorders" />
+    </AssociationSet>
+    <EntitySet Name="drivers" EntityType="systemDBModel.driver" />
+    <EntitySet Name="sysdiagrams" EntityType="systemDBModel.sysdiagram" />
+    <EntitySet Name="Tblproducts" EntityType="systemDBModel.Tblproduct" />
+    <AssociationSet Name="FK_OrderItems_Tblproduct" Association="systemDBModel.FK_OrderItems_Tblproduct">
+      <End Role="Tblproduct" EntitySet="Tblproducts" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tblcart_Tblproduct" Association="systemDBModel.FK_Tblcart_Tblproduct">
+      <End Role="Tblproduct" EntitySet="Tblproducts" />
+      <End Role="Tblcart" EntitySet="Tblcarts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="supplier">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TblSchedules" Relationship="systemDBModel.FK_TblSchedule_supplier" FromRole="supplier" ToRole="TblSchedule" />
+  </EntityType>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tblcart">
+    <Key>
+      <PropertyRef Name="cartID" />
+    </Key>
+    <Property Name="cartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customerID" Type="Int32" Nullable="false" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Tblcustomer" Relationship="systemDBModel.FK_Tblcart_Tblcustomer" FromRole="Tblcart" ToRole="Tblcustomer" />
+    <NavigationProperty Name="Tblproduct" Relationship="systemDBModel.FK_Tblcart_Tblproduct" FromRole="Tblcart" ToRole="Tblproduct" />
+  </EntityType>
+  <EntityType Name="Tblcustomer">
+    <Key>
+      <PropertyRef Name="customerID" />
+    </Key>
+    <Property Name="customerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tblcarts" Relationship="systemDBModel.FK_Tblcart_Tblcustomer" FromRole="Tblcustomer" ToRole="Tblcart" />
+    <NavigationProperty Name="Tbladdresses" Relationship="systemDBModel.FK_Tbladdress_Tblcustomer" FromRole="Tblcustomer" ToRole="Tbladdress" />
+    <NavigationProperty Name="payments" Relationship="systemDBModel.FK_payment_Tblcustomer" FromRole="Tblcustomer" ToRole="payment" />
+    <NavigationProperty Name="Tblorders" Relationship="systemDBModel.FK_Tblorder_Tblcustomer" FromRole="Tblcustomer" ToRole="Tblorder" />
+  </EntityType>
+  <Association Name="FK_Tblcart_Tblcustomer">
+    <End Type="systemDBModel.Tblcustomer" Role="Tblcustomer" Multiplicity="1" />
+    <End Type="systemDBModel.Tblcart" Role="Tblcart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblcustomer">
+        <PropertyRef Name="customerID" />
+      </Principal>
+      <Dependent Role="Tblcart">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Tbladdress">
+    <Key>
+      <PropertyRef Name="addressID" />
+    </Key>
+    <Property Name="addressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customerID" Type="Int32" />
+    <Property Name="contactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="address1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="address2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="suburb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="zip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tblcustomer" Relationship="systemDBModel.FK_Tbladdress_Tblcustomer" FromRole="Tbladdress" ToRole="Tblcustomer" />
+  </EntityType>
+  <Association Name="FK_Tbladdress_Tblcustomer">
+    <End Type="systemDBModel.Tblcustomer" Role="Tblcustomer" Multiplicity="0..1" />
+    <End Type="systemDBModel.Tbladdress" Role="Tbladdress" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblcustomer">
+        <PropertyRef Name="customerID" />
+      </Principal>
+      <Dependent Role="Tbladdress">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="OrderItem">
+    <Key>
+      <PropertyRef Name="itemlist" />
+    </Key>
+    <Property Name="itemlist" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" />
+    <Property Name="productID" Type="Int32" />
+    <Property Name="quantity" Type="Int32" />
+    <NavigationProperty Name="Tblorder" Relationship="systemDBModel.FK_OrderItems_Tblorder" FromRole="OrderItem" ToRole="Tblorder" />
+    <NavigationProperty Name="Tblproduct" Relationship="systemDBModel.FK_OrderItems_Tblproduct" FromRole="OrderItem" ToRole="Tblproduct" />
+  </EntityType>
+  <EntityType Name="eft">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="paymentID" Type="Int32" Nullable="false" />
+    <Property Name="AccHolder" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Bank" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Branch" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="payment" Relationship="systemDBModel.FK_eft_payment" FromRole="eft" ToRole="payment" />
+  </EntityType>
+  <EntityType Name="payment">
+    <Key>
+      <PropertyRef Name="paymentID" />
+    </Key>
+    <Property Name="paymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customerID" Type="Int32" />
+    <Property Name="paymentMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="efts" Relationship="systemDBModel.FK_eft_payment" FromRole="payment" ToRole="eft" />
+    <NavigationProperty Name="Tblcustomer" Relationship="systemDBModel.FK_payment_Tblcustomer" FromRole="payment" ToRole="Tblcustomer" />
+    <NavigationProperty Name="Tblcredits" Relationship="systemDBModel.FK_Tblcredit_payment" FromRole="payment" ToRole="Tblcredit" />
+  </EntityType>
+  <Association Name="FK_eft_payment">
+    <End Type="systemDBModel.payment" Role="payment" Multiplicity="1" />
+    <End Type="systemDBModel.eft" Role="eft" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="payment">
+        <PropertyRef Name="paymentID" />
+      </Principal>
+      <Dependent Role="eft">
+        <PropertyRef Name="paymentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_payment_Tblcustomer">
+    <End Type="systemDBModel.Tblcustomer" Role="Tblcustomer" Multiplicity="0..1" />
+    <End Type="systemDBModel.payment" Role="payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblcustomer">
+        <PropertyRef Name="customerID" />
+      </Principal>
+      <Dependent Role="payment">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Tblcredit">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="paymentID" Type="Int32" />
+    <Property Name="CardDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NameonCard" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ExpirationDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Cvv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="payment" Relationship="systemDBModel.FK_Tblcredit_payment" FromRole="Tblcredit" ToRole="payment" />
+  </EntityType>
+  <Association Name="FK_Tblcredit_payment">
+    <End Type="systemDBModel.payment" Role="payment" Multiplicity="0..1" />
+    <End Type="systemDBModel.Tblcredit" Role="Tblcredit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="payment">
+        <PropertyRef Name="paymentID" />
+      </Principal>
+      <Dependent Role="Tblcredit">
+        <PropertyRef Name="paymentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TblSchedule">
+    <Key>
+      <PropertyRef Name="scheduleID" />
+    </Key>
+    <Property Name="scheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID" Type="Int32" />
+    <Property Name="Sname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Cname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="contacts" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="discription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="supplier" Relationship="systemDBModel.FK_TblSchedule_supplier" FromRole="TblSchedule" ToRole="supplier" />
+  </EntityType>
+  <Association Name="FK_TblSchedule_supplier">
+    <End Type="systemDBModel.supplier" Role="supplier" Multiplicity="0..1" />
+    <End Type="systemDBModel.TblSchedule" Role="TblSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="supplier">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TblSchedule">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Tblorder">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customerID" Type="Int32" />
+    <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="totalCost" Type="Int32" />
+    <Property Name="deliveryDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DeliveryStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="OrderItems" Relationship="systemDBModel.FK_OrderItems_Tblorder" FromRole="Tblorder" ToRole="OrderItem" />
+    <NavigationProperty Name="Tblcustomer" Relationship="systemDBModel.FK_Tblorder_Tblcustomer" FromRole="Tblorder" ToRole="Tblcustomer" />
+  </EntityType>
+  <Association Name="FK_OrderItems_Tblorder">
+    <End Type="systemDBModel.Tblorder" Role="Tblorder" Multiplicity="0..1" />
+    <End Type="systemDBModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblorder">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tblorder_Tblcustomer">
+    <End Type="systemDBModel.Tblcustomer" Role="Tblcustomer" Multiplicity="0..1" />
+    <End Type="systemDBModel.Tblorder" Role="Tblorder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblcustomer">
+        <PropertyRef Name="customerID" />
+      </Principal>
+      <Dependent Role="Tblorder">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="driver">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tblproduct">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="price" Type="Double" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="ProductImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="OrderItems" Relationship="systemDBModel.FK_OrderItems_Tblproduct" FromRole="Tblproduct" ToRole="OrderItem" />
+    <NavigationProperty Name="Tblcarts" Relationship="systemDBModel.FK_Tblcart_Tblproduct" FromRole="Tblproduct" ToRole="Tblcart" />
+  </EntityType>
+  <Association Name="FK_OrderItems_Tblproduct">
+    <End Type="systemDBModel.Tblproduct" Role="Tblproduct" Multiplicity="0..1" />
+    <End Type="systemDBModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblproduct">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tblcart_Tblproduct">
+    <End Type="systemDBModel.Tblproduct" Role="Tblproduct" Multiplicity="1" />
+    <End Type="systemDBModel.Tblcart" Role="Tblcart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tblproduct">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="Tblcart">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
